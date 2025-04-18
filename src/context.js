@@ -50,7 +50,7 @@ export function InventoryProvider({ children }) {
   return (
     <InventoryContext.Provider value={{ inventory, items, updateInventory, addItem, updateItems }}>
       {children}
-    <InventoryContext.Provider>
+</InventoryContext.Provider>
   );
 }
 
