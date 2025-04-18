@@ -51,8 +51,17 @@ export function InventoryProvider({ children }) {
     setItems(newItems);
   };
 
+  // JSX를 명확히 정리
   return (
-    <InventoryContext.Provider value={{ inventory, items, updateInventory, addItem, updateItems }}>
+    <InventoryContext.Provider
+      value={{
+        inventory,
+        items,
+        updateInventory,
+        addItem,
+        updateItems,
+      }}
+    >
       {children}
     </InventoryContext.Provider>
   );
