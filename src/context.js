@@ -47,8 +47,10 @@ export function InventoryProvider({ children }) {
     setItems(newItems);
   };
 
+  const contextValue = { inventory, items, updateInventory, addItem, updateItems };
+
   return (
-    <InventoryContext.Provider value={{ inventory, items, updateInventory, addItem, updateItems }}>
+    <InventoryContext.Provider value={contextValue}>
       {children}
     </InventoryContext.Provider>
   );
