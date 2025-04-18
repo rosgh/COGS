@@ -10,9 +10,9 @@ export function InventoryProvider({ children }) {
   useEffect(() => {
     const savedData = localStorage.getItem('inventoryData');
     if (savedData) {
-      const { inventory, items } = JSON.parse(savedData);
-      setInventory(inventory || {});
-      setItems(items || {});
+      const parsed = JSON.parse(savedData);
+      setInventory(parsed.inventory || {});
+      setItems(parsed.items || {});
     }
   }, []);
 
@@ -22,24 +22,27 @@ export function InventoryProvider({ children }) {
   }, [inventory, items]);
 
   const updateInventory = (month, category, item, data) => {
-    setInventory((prev) => ({
-      ...prev,
-      [month]: {
+    setInventory((prev) => {
+      const newMonth = {
         ...prev[month],
         [category]: {
-          ...prev[month]?.[category],
+          ...(prev[month]?.[category] || {}),
           [item]: data,
         },
-      },
-    }));
+      };
+      return { ...prev, [month]: newMonth };
+    });
   };
 
   const addItem = (category, item) => {
     setItems((prev) => {
-      const newItems = [...(prev[category] || []), item];
+      const currentItems = prev[category] || [];
+      if (!currentItems.includes(item)) {
+        currentItems.push(item);
+      }
       return {
         ...prev,
-        [category]: [...new Set(newItems)].sort(), // Sort alphabetically
+        [category]: [...currentItems].sort(),
       };
     });
   };
