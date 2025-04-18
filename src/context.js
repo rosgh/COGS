@@ -6,7 +6,6 @@ export function InventoryProvider({ children }) {
   const [inventory, setInventory] = useState({});
   const [items, setItems] = useState({});
 
-  // Load from localStorage on mount
   useEffect(() => {
     const savedData = localStorage.getItem('inventoryData');
     if (savedData) {
@@ -16,7 +15,6 @@ export function InventoryProvider({ children }) {
     }
   }, []);
 
-  // Save to localStorage when inventory or items change
   useEffect(() => {
     localStorage.setItem('inventoryData', JSON.stringify({ inventory, items }));
   }, [inventory, items]);
@@ -51,17 +49,8 @@ export function InventoryProvider({ children }) {
     setItems(newItems);
   };
 
-  // JSX를 명확히 정리
   return (
-    <InventoryContext.Provider
-      value={{
-        inventory,
-        items,
-        updateInventory,
-        addItem,
-        updateItems,
-      }}
-    >
+    <InventoryContext.Provider value={{ inventory, items, updateInventory, addItem, updateItems }}>
       {children}
     </InventoryContext.Provider>
   );
