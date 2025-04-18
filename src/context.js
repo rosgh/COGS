@@ -35,12 +35,10 @@ export function InventoryProvider({ children }) {
   const addItem = (category, item) => {
     setItems((prev) => {
       const currentItems = prev[category] || [];
-      if (!currentItems.includes(item)) {
-        currentItems.push(item);
-      }
+      const newItems = currentItems.includes(item) ? currentItems : [...currentItems, item];
       return {
         ...prev,
-        [category]: [...currentItems].sort(),
+        [category]: newItems.sort(),
       };
     });
   };
